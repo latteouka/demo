@@ -28,30 +28,30 @@ const Model = () => {
           <OrbitControls />
 
           <ambientLight intensity={0.5} color="#FEF3E3" />
-          <spotLight
+          <directionalLight
             args={["#FEF3E3", 1]}
             castShadow
-            position={[3, 5, 6]}
+            position={[2, 6, 6]}
             shadow-mapSize={4096}
-            shadow-normalBias={-0.0001}
-            shadow-bias={-0.0001}
+            shadow-normalBias={-0.0005}
+            shadow-bias={-0.0005}
             shadow-camera-near={0.1}
-            shadow-camera-far={10}
-            shadow-camera-top={-3}
-            shadow-camera-bottom={3}
-            shadow-camera-left={-3}
-            shadow-camera-right={3}
+            shadow-camera-far={20}
+            shadow-camera-top={-10}
+            shadow-camera-bottom={10}
+            shadow-camera-left={-10}
+            shadow-camera-right={10}
           >
             <mesh>
               <boxGeometry args={[0.1, 0.1, 0.1]}></boxGeometry>
               <meshBasicMaterial color={0xff0000} />
             </mesh>
-          </spotLight>
+          </directionalLight>
 
           <pointLight
             color="#F9F4E6"
             position={[-0.1, 1, -0.1]}
-            intensity={0.6}
+            intensity={0.2}
             distance={3}
           >
             <mesh>
