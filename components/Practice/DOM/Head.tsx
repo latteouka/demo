@@ -21,7 +21,7 @@ const HeroSection = () => {
           <p>Software Engineer | 3D Artist</p>
         </Hero>
         <Hero level="sub">
-          <h1>Chun's Room</h1>
+          <h1>Chun&apos;s Room</h1>
           <p>Portfolio</p>
         </Hero>
       </HeadWrapper>

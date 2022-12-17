@@ -2,8 +2,8 @@ import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import useRoomModel from "../../utils/useRoomModel";
 import useCheckDevice from "../../utils/useCheckDevice";
-import { Suspense } from "react";
-import { OrbitControls } from "@react-three/drei";
+import { Suspense, useEffect } from "react";
+import { OrbitControls, useAnimations } from "@react-three/drei";
 
 const Model = () => {
   const pointColor = "#FFEB94";
@@ -17,6 +17,7 @@ const Model = () => {
       <Suspense fallback={<span>Loading...</span>}>
         <Canvas
           gl={{
+            outputEncoding: THREE.sRGBEncoding,
             toneMapping: THREE.ReinhardToneMapping,
             toneMappingExposure: 2.3,
           }}
@@ -26,7 +27,7 @@ const Model = () => {
         >
           <OrbitControls />
 
-          <ambientLight intensity={0.4} color="#FEF3E3" />
+          <ambientLight intensity={0.5} color="#FEF3E3" />
           <spotLight
             args={["#FEF3E3", 1]}
             castShadow
@@ -79,12 +80,19 @@ export default Model;
 const Room = () => {
   // custom hook to set Room Models
   const [model, elements] = useRoomModel("/models/lecouernew.glb");
-  console.log(elements.current);
+  const { ref, actions, names } = useAnimations(model.current.animations);
   // resize observer
   const device = useCheckDevice();
 
+  useEffect(() => {
+    actions["Cube.006Action"].play();
+    actions["blue_box.003Action"].play();
+    console.log(actions);
+  }, []);
+
   return (
     <primitive
+      ref={ref}
       rotation={[0, -Math.PI / 4, 0]}
       object={model.current.scene}
       scale={0.4}

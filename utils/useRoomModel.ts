@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useGLTF } from "@react-three/drei";
+import { useAnimations, useGLTF } from "@react-three/drei";
 import { ObjectMap } from "@react-three/fiber";
 import { MutableRefObject, useRef } from "react";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
@@ -48,12 +48,22 @@ const useRoomModel = (
       child.material.thickness = 0.1;
     }
 
+    if (child.name === "cake_window") {
+      child.castShadow = false;
+      child.material = new THREE.MeshPhysicalMaterial();
+      child.material.transmission = 0.7;
+      child.material.metalness = 0.1;
+      child.material.roughness = 0.4;
+      child.material.color.set(0xeaffff);
+      child.material.ior = 2;
+      console.log(child.material);
+    }
+
     //child.scale.set(0, 0, 0);
     // if (child.name === "table") {
     //   child.scale.set(0, 0, 0);
     // }
     if (child.name === "tea_bottle") {
-      console.log(child.material);
       child.material.roughness = 0.05;
     }
   });
