@@ -8,7 +8,7 @@ import { OrbitControls, useAnimations } from "@react-three/drei";
 const Model = () => {
   const pointColor = "#FFEB94";
   const pointIntensity = 0.5;
-  const boxSize: any = [0.05, 0.05, 0.05];
+  const boxSize: any = [0, 0, 0];
   // Canvas is responsive to fit the parent node,
   // so you can control how big it is by changing
   // the parents width and height.
@@ -27,14 +27,14 @@ const Model = () => {
         >
           <OrbitControls />
 
-          <ambientLight intensity={0.5} color="#FEF3E3" />
+          <ambientLight intensity={0.6} color="#FEF3E3" />
           <directionalLight
-            args={["#FEF3E3", 1]}
+            args={["#FEF3E3", 1.1]}
             castShadow
             position={[2, 6, 6]}
             shadow-mapSize={4096}
-            shadow-normalBias={-0.0005}
-            shadow-bias={-0.0005}
+            shadow-normalBias={-0.001}
+            shadow-bias={-0.001}
             shadow-camera-near={0.1}
             shadow-camera-far={20}
             shadow-camera-top={-10}
@@ -43,7 +43,7 @@ const Model = () => {
             shadow-camera-right={10}
           >
             <mesh>
-              <boxGeometry args={[0.1, 0.1, 0.1]}></boxGeometry>
+              <boxGeometry args={boxSize}></boxGeometry>
               <meshBasicMaterial color={0xff0000} />
             </mesh>
           </directionalLight>
@@ -55,7 +55,7 @@ const Model = () => {
             distance={3}
           >
             <mesh>
-              <boxGeometry args={[0.1, 0.1, 0.1]}></boxGeometry>
+              <boxGeometry args={boxSize}></boxGeometry>
               <meshBasicMaterial color={0xff0000} />
             </mesh>
           </pointLight>
@@ -80,7 +80,8 @@ export default Model;
 const Room = () => {
   // custom hook to set Room Models
   const [model, elements] = useRoomModel("/models/lecouernew.glb");
-  const { ref, actions, names } = useAnimations(model.current.animations);
+
+  const { ref, actions } = useAnimations(model.current.animations);
   // resize observer
   const device = useCheckDevice();
 
