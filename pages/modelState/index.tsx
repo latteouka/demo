@@ -36,8 +36,8 @@ const Model = () => {
             castShadow
             position={[2, 6, 6]}
             shadow-mapSize={512}
-            shadow-normalBias={-0.005}
-            shadow-bias={-0.005}
+            shadow-normalBias={-0.006}
+            shadow-bias={-0.006}
             shadow-camera-near={0.1}
             shadow-camera-far={15}
             shadow-camera-top={-8}
@@ -180,137 +180,6 @@ const Room = () => {
           "shelf"
         );
       secondIntroTimeline.to(
-        elements["white_box1"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          duration: 0.7,
-          ease: "back.out(1.7)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["white_box2"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["white_box3"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["white_box4"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["blue_box1"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["blue_box2"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["blue_box3"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["blue_box4"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["blue_box5"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        ">-0.4"
-      );
-      secondIntroTimeline.to(
-        elements["cup4"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        "3"
-      );
-      secondIntroTimeline.to(
-        elements["cup5"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        "3"
-      );
-      secondIntroTimeline.to(
-        elements["cup6"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        "3"
-      );
-      secondIntroTimeline.to(
-        elements["pot"].scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          ease: "back.out(2.5)",
-        },
-        "3"
-      );
-      secondIntroTimeline.to(
         elements["tea_bottle1"].scale,
         {
           x: 1,
@@ -318,7 +187,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "4"
+        "leftshelf1"
       );
       secondIntroTimeline.to(
         elements["tea_bottle2"].scale,
@@ -328,7 +197,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "4"
+        "leftshelf1"
       );
       secondIntroTimeline.to(
         elements["tea_box1"].scale,
@@ -338,7 +207,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "4"
+        "leftshelf1"
       );
       secondIntroTimeline.to(
         elements["tea_box2"].scale,
@@ -348,17 +217,138 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "4"
+        "leftshelf1"
       );
       secondIntroTimeline.to(
-        elements["coffee_machine"].scale,
+        elements["cup4"].scale,
         {
           x: 1,
           y: 1,
           z: 1,
           ease: "back.out(2.5)",
         },
-        ">-0.3"
+        "leftshelf2"
+      );
+      secondIntroTimeline.to(
+        elements["cup5"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "leftshelf2"
+      );
+      secondIntroTimeline.to(
+        elements["cup6"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "leftshelf2"
+      );
+      secondIntroTimeline.to(
+        elements["pot"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "leftshelf2"
+      );
+      secondIntroTimeline.to(
+        elements["white_box1"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          duration: 0.7,
+          ease: "back.out(1.7)",
+        },
+        "rightshelf"
+      );
+      secondIntroTimeline.to(
+        elements["white_box2"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "rightshelf"
+      );
+      secondIntroTimeline.to(
+        elements["white_box3"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "rightshelf"
+      );
+      secondIntroTimeline.to(
+        elements["white_box4"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "rightshelf"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box1"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "rightshelf"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box2"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "rightshelf"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box3"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "rightshelf"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box4"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "rightshelf"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box5"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "rightshelf"
       );
       secondIntroTimeline.to(
         elements["grinder_body"].scale,
@@ -380,6 +370,46 @@ const Room = () => {
         ">-0.3"
       );
       secondIntroTimeline.to(
+        elements["coffee_machine"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["cup1"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["cup2"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["cup3"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
         elements["pos"].scale,
         {
           x: 1,
@@ -390,7 +420,7 @@ const Room = () => {
         ">-0.3"
       );
       secondIntroTimeline.to(
-        elements["vase"].scale,
+        elements["card_stand"].scale,
         {
           x: 1,
           y: 1,
@@ -400,7 +430,7 @@ const Room = () => {
         ">-0.3"
       );
       secondIntroTimeline.to(
-        elements["card_stand"].scale,
+        elements["vase"].scale,
         {
           x: 1,
           y: 1,
@@ -461,6 +491,19 @@ const Room = () => {
       );
       secondIntroTimeline.to(
         elements["chair4"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+          onComplete: () => {
+            resolve;
+          },
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["pearl"].scale,
         {
           x: 1,
           y: 1,

@@ -54,7 +54,7 @@ const useRoomModel = (
       child.material.color.set(0xffffff);
       //child.material.color.set(0xeaf6ff);
       child.material.ior = 2;
-      child.material.opacity = 1;
+      child.material.opacity = 0;
       child.material.thickness = 0.1;
     }
 
