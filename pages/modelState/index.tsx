@@ -1,36 +1,30 @@
 import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useRoomModel from "../../utils/useRoomModel";
 import useCheckDevice from "../../utils/useCheckDevice";
 import { Suspense, useEffect, useRef } from "react";
 import { OrbitControls, useAnimations } from "@react-three/drei";
 import Loading from "../../components/Lecouer/Loading";
 import gsap from "gsap";
+import {
+  DepthOfField,
+  Bloom,
+  Noise,
+  Glitch,
+  Vignette,
+  EffectComposer,
+} from "@react-three/postprocessing";
 
 const firstIntroTimeline = gsap.timeline();
+const secondIntroTimeline = gsap.timeline();
 
 const Model = () => {
-  const skip = useRef(false);
   const pointColor = "#FFEB94";
   const pointIntensity = 0.5;
   const boxSize: any = [0, 0, 0];
   // Canvas is responsive to fit the parent node,
   // so you can control how big it is by changing
   // the parents width and height.
-  useEffect(() => {
-    // have to do this or gsap will mount twice because of useEffect!!!
-    if (skip.current) return;
-    skip.current = true;
-
-    firstIntroTimeline.to(".loading", {
-      opacity: 0,
-      delay: 2,
-      duration: 1,
-      onComplete: () => {
-        document.querySelector(".loading").classList.add("hidden");
-      },
-    });
-  }, []);
   return (
     <div className="w-[100vw] h-[100vh]">
       <Loading />
@@ -42,11 +36,9 @@ const Model = () => {
             toneMappingExposure: 2.3,
           }}
           orthographic
-          camera={{ position: [0, 6, 10], zoom: 160 }}
+          camera={{ position: [0, 6, 10], zoom: 180 }}
           shadows
         >
-          <OrbitControls />
-
           <ambientLight intensity={0.6} color="#FEF3E3" />
           <directionalLight
             args={["#FEF3E3", 1.1]}
@@ -56,11 +48,11 @@ const Model = () => {
             shadow-normalBias={-0.002}
             shadow-bias={-0.002}
             shadow-camera-near={0.1}
-            shadow-camera-far={20}
-            shadow-camera-top={-10}
-            shadow-camera-bottom={10}
-            shadow-camera-left={-10}
-            shadow-camera-right={10}
+            shadow-camera-far={15}
+            shadow-camera-top={-8}
+            shadow-camera-bottom={8}
+            shadow-camera-left={-8}
+            shadow-camera-right={8}
           >
             <mesh>
               <boxGeometry args={boxSize}></boxGeometry>
@@ -86,9 +78,16 @@ const Model = () => {
             position={[0, -1.25, 0]}
             receiveShadow
           >
-            <planeGeometry args={[100, 100]} />
+            <planeGeometry args={[20, 20]} />
             <meshStandardMaterial color={0xfef3e3} />
           </mesh>
+          <EffectComposer multisampling={4}>
+            <DepthOfField
+              focusDistance={0.01}
+              focalLength={0.025}
+              bokehScale={20}
+            />
+          </EffectComposer>
         </Canvas>
       </Suspense>
     </div>
@@ -98,19 +97,412 @@ const Model = () => {
 export default Model;
 
 const Room = () => {
+  const skip = useRef(false);
   // custom hook to set Room Models and get animations
-  const [scene, elements, actions] = useRoomModel("/models/lecouernew.glb");
+  const [scene, elements, actions, cameras] = useRoomModel(
+    "/models/lecouernew.glb"
+  );
+
+  console.log(elements);
+  const three = useThree();
+  const roomRef = useRef(null);
+
   //console.log(actions);
 
   // resize observer
   const device = useCheckDevice();
 
   useEffect(() => {
-    actions["blue_box.003Action"].play();
+    //actions["blue_box.003Action"].play();
   }, []);
 
+  const playFirst = async () => {
+    return new Promise((resolve) => {
+      firstIntroTimeline.to(".loading", {
+        opacity: 0,
+        delay: 1,
+        onComplete: async () => {
+          document.querySelector(".loading").classList.add("hidden");
+          console.log("first intro complete");
+          await playSecond();
+          resolve;
+        },
+      });
+    });
+  };
+
+  const playSecond = async () => {
+    return new Promise((resolve) => {
+      secondIntroTimeline
+        .to(
+          elements["wall"].scale,
+          {
+            x: 1,
+            y: 1,
+            z: 1,
+            duration: 0.7,
+          },
+          "1"
+        )
+        .to(
+          elements["counter_main"].scale,
+          {
+            x: 1,
+            y: 1,
+            z: 1,
+            duration: 0.7,
+            ease: "back.out(1.7)",
+          },
+          ">-0.2"
+        )
+        .to(
+          elements["shelf1"].scale,
+          {
+            x: 1,
+            y: 1,
+            z: 1,
+            duration: 0.7,
+            ease: "back.out(1.7)",
+          },
+          "shelf"
+        )
+        .to(
+          elements["shelf2"].scale,
+          {
+            x: 1,
+            y: 1,
+            z: 1,
+            duration: 0.7,
+            ease: "back.out(1.7)",
+          },
+          "shelf"
+        )
+        .to(
+          elements["shelf3"].scale,
+          {
+            x: 1,
+            y: 1,
+            z: 1,
+            duration: 0.7,
+            ease: "back.out(1.7)",
+          },
+          "shelf"
+        );
+      secondIntroTimeline.to(
+        elements["white_box1"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          duration: 0.7,
+          ease: "back.out(1.7)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["white_box2"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["white_box3"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["white_box4"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box1"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box2"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box3"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box4"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["blue_box5"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["cup4"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "3"
+      );
+      secondIntroTimeline.to(
+        elements["cup5"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "3"
+      );
+      secondIntroTimeline.to(
+        elements["cup6"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "3"
+      );
+      secondIntroTimeline.to(
+        elements["pot"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "3"
+      );
+      secondIntroTimeline.to(
+        elements["tea_bottle1"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "4"
+      );
+      secondIntroTimeline.to(
+        elements["tea_bottle2"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "4"
+      );
+      secondIntroTimeline.to(
+        elements["tea_box1"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "4"
+      );
+      secondIntroTimeline.to(
+        elements["tea_box2"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "4"
+      );
+      secondIntroTimeline.to(
+        elements["coffee_machine"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["grinder_body"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["grinder_glass"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["pos"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["vase"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["card_stand"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["cake_window"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.3"
+      );
+      secondIntroTimeline.to(
+        elements["table"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.2"
+      );
+      secondIntroTimeline.to(
+        elements["chair1"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "5"
+      );
+      secondIntroTimeline.to(
+        elements["chair2"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "5"
+      );
+      secondIntroTimeline.to(
+        elements["chair3"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "5"
+      );
+      secondIntroTimeline.to(
+        elements["chair4"].scale,
+        {
+          x: 1,
+          y: 1,
+          z: 1,
+          ease: "back.out(2.5)",
+        },
+        "5"
+      );
+    });
+  };
+
+  const playIntro = async () => {
+    await playFirst();
+  };
+  useEffect(() => {
+    // have to do this or gsap will mount twice because of useEffect!!!
+    if (skip.current) return;
+    skip.current = true;
+
+    playIntro();
+  }, []);
+
+  useFrame((state) => {
+    // for orthographic camera resize update
+    // and for zoom animation is needed
+    state.camera.updateProjectionMatrix();
+  });
+
+  // position={[0, -1.1, 0]}
   return (
     <primitive
+      ref={roomRef}
       rotation={[0, -Math.PI / 4, 0]}
       object={scene}
       scale={0.4}
