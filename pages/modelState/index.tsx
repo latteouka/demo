@@ -123,7 +123,15 @@ const Room = () => {
             x: 1,
             y: 1,
             z: 1,
-            duration: 0.7,
+          },
+          "1"
+        )
+        .to(
+          elements["counter_floor"].scale,
+          {
+            x: 1,
+            y: 1,
+            z: 1,
           },
           "1"
         )
@@ -368,7 +376,6 @@ const Room = () => {
           x: 1,
           y: 1,
           z: 1,
-          ease: "back.out(2.5)",
         },
         ">-0.3"
       );

@@ -48,9 +48,9 @@ const useRoomModel = (
     if (child.name === "grinder_glass") {
       child.castShadow = false;
       child.material = new THREE.MeshPhysicalMaterial();
-      child.material.transmission = 0.1;
+      child.material.transmission = 0.9;
       child.material.roughness = 0.15;
-      child.material.metalness = 0.6;
+      child.material.metalness = 0.1;
       child.material.color.set(0xffffff);
       //child.material.color.set(0xeaf6ff);
       child.material.ior = 2;
