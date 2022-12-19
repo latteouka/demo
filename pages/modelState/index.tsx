@@ -35,7 +35,7 @@ const Model = () => {
             args={["#FEF3E3", 1.1]}
             castShadow
             position={[2, 6, 6]}
-            shadow-mapSize={1024}
+            shadow-mapSize={512}
             shadow-normalBias={-0.005}
             shadow-bias={-0.005}
             shadow-camera-near={0.1}
@@ -87,7 +87,6 @@ const Room = () => {
     "/models/lecouernew.glb"
   );
 
-  console.log(elements);
   const three = useThree();
   const roomRef = useRef(null);
 
@@ -104,7 +103,7 @@ const Room = () => {
     return new Promise((resolve) => {
       firstIntroTimeline.to(".loading", {
         opacity: 0,
-        delay: 1,
+        delay: 2,
         onComplete: async () => {
           document.querySelector(".loading").classList.add("hidden");
           console.log("first intro complete");
@@ -460,6 +459,9 @@ const Room = () => {
           y: 1,
           z: 1,
           ease: "back.out(2.5)",
+          onComplete: () => {
+            resolve;
+          },
         },
         ">-0.4"
       );
@@ -477,11 +479,11 @@ const Room = () => {
     playIntro();
   }, []);
 
-  useFrame((state) => {
-    // for orthographic camera resize update
-    // and for zoom animation is needed
-    state.camera.updateProjectionMatrix();
-  });
+  // useFrame((state) => {
+  //   // for orthographic camera resize update
+  //   // and for zoom animation is needed
+  //   state.camera.updateProjectionMatrix();
+  // });
 
   // position={[0, -1.1, 0]}
   return (
