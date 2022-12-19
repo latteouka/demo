@@ -44,9 +44,9 @@ const Model = () => {
             args={["#FEF3E3", 1.1]}
             castShadow
             position={[2, 6, 6]}
-            shadow-mapSize={4096}
-            shadow-normalBias={-0.002}
-            shadow-bias={-0.002}
+            shadow-mapSize={1024}
+            shadow-normalBias={-0.005}
+            shadow-bias={-0.005}
             shadow-camera-near={0.1}
             shadow-camera-far={15}
             shadow-camera-top={-8}
@@ -447,7 +447,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "5"
+        ">-0.4"
       );
       secondIntroTimeline.to(
         elements["chair2"].scale,
@@ -457,7 +457,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "5"
+        ">-0.4"
       );
       secondIntroTimeline.to(
         elements["chair3"].scale,
@@ -467,7 +467,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "5"
+        ">-0.4"
       );
       secondIntroTimeline.to(
         elements["chair4"].scale,
@@ -477,7 +477,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "5"
+        ">-0.4"
       );
     });
   };
