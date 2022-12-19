@@ -12,7 +12,7 @@ const useRoomModel = (
   src: string
 ): [THREE.Group, ElementsObject, { [x: string]: THREE.AnimationAction }] => {
   // ): [MutableRefObject<GLTF & ObjectMap>, MutableRefObject<ElementsObject>] => {
-  const { scene, animations } = useGLTF(src);
+  const { scene, animations, materials } = useGLTF(src);
   const modelRef = useRef(scene);
   const animationsRef = useRef(animations);
   //const elements = useRef<ElementsObject>({} as ElementsObject);
@@ -63,7 +63,6 @@ const useRoomModel = (
       child.material.roughness = 0.35;
       child.material.color.set(0xeaffff);
       child.material.ior = 2;
-      console.log(child.material);
     }
 
     //child.scale.set(0, 0, 0);

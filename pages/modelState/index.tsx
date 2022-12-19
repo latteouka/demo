@@ -2,19 +2,38 @@ import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import useRoomModel from "../../utils/useRoomModel";
 import useCheckDevice from "../../utils/useCheckDevice";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { OrbitControls, useAnimations } from "@react-three/drei";
+import Loading from "../../components/Lecouer/Loading";
+import gsap from "gsap";
+
+const firstIntroTimeline = gsap.timeline();
 
 const Model = () => {
+  const skip = useRef(false);
   const pointColor = "#FFEB94";
   const pointIntensity = 0.5;
   const boxSize: any = [0, 0, 0];
   // Canvas is responsive to fit the parent node,
   // so you can control how big it is by changing
   // the parents width and height.
+  useEffect(() => {
+    // have to do this or gsap will mount twice because of useEffect!!!
+    if (skip.current) return;
+    skip.current = true;
+
+    firstIntroTimeline.to(".loading", {
+      opacity: 0,
+      delay: 1,
+      onComplete: () => {
+        document.querySelector(".loading").classList.add("hidden");
+      },
+    });
+  }, []);
   return (
     <div className="w-[100vw] h-[100vh]">
-      <Suspense fallback={<span>Loading...</span>}>
+      <Loading />
+      <Suspense fallback={null}>
         <Canvas
           gl={{
             outputEncoding: THREE.sRGBEncoding,
@@ -33,8 +52,8 @@ const Model = () => {
             castShadow
             position={[2, 6, 6]}
             shadow-mapSize={4096}
-            shadow-normalBias={-0.001}
-            shadow-bias={-0.001}
+            shadow-normalBias={-0.002}
+            shadow-bias={-0.002}
             shadow-camera-near={0.1}
             shadow-camera-far={20}
             shadow-camera-top={-10}
@@ -81,7 +100,6 @@ const Room = () => {
   // custom hook to set Room Models and get animations
   const [scene, elements, actions] = useRoomModel("/models/lecouernew.glb");
   //console.log(actions);
-  console.log(elements);
 
   // resize observer
   const device = useCheckDevice();
