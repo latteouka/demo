@@ -3,17 +3,8 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import useRoomModel from "../../utils/useRoomModel";
 import useCheckDevice from "../../utils/useCheckDevice";
 import { Suspense, useEffect, useRef } from "react";
-import { OrbitControls, useAnimations } from "@react-three/drei";
 import Loading from "../../components/Lecouer/Loading";
 import gsap from "gsap";
-import {
-  DepthOfField,
-  Bloom,
-  Noise,
-  Glitch,
-  Vignette,
-  EffectComposer,
-} from "@react-three/postprocessing";
 
 const firstIntroTimeline = gsap.timeline();
 const secondIntroTimeline = gsap.timeline();
@@ -81,13 +72,6 @@ const Model = () => {
             <planeGeometry args={[20, 20]} />
             <meshStandardMaterial color={0xfef3e3} />
           </mesh>
-          <EffectComposer multisampling={4}>
-            <DepthOfField
-              focusDistance={0.01}
-              focalLength={0.025}
-              bokehScale={20}
-            />
-          </EffectComposer>
         </Canvas>
       </Suspense>
     </div>
