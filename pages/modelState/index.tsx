@@ -496,9 +496,6 @@ const Room = () => {
           y: 1,
           z: 1,
           ease: "back.out(2.5)",
-          onComplete: () => {
-            resolve;
-          },
         },
         ">-0.4"
       );
@@ -508,6 +505,24 @@ const Room = () => {
           x: 1,
           y: 1,
           z: 1,
+          ease: "back.out(2.5)",
+        },
+        ">-0.4"
+      );
+      secondIntroTimeline.to(
+        elements["pearl"].rotation,
+        {
+          y: elements["pearl"].rotation.y + Math.PI * 4,
+          ease: "back.out(2.5)",
+        },
+        ">-0.1"
+      );
+      secondIntroTimeline.to(
+        elements["pearl"].scale,
+        {
+          x: 3,
+          y: 3,
+          z: 3,
           ease: "back.out(2.5)",
           onComplete: () => {
             resolve;
