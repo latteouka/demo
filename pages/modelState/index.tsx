@@ -17,7 +17,7 @@ const Model = () => {
   // so you can control how big it is by changing
   // the parents width and height.
   return (
-    <div className="w-[100vw] h-[100vh]">
+    <div className="w-[100vw] h-[100vh] fixed">
       <Loading />
       <Suspense fallback={null}>
         <Canvas
@@ -103,7 +103,7 @@ const Room = () => {
     return new Promise((resolve) => {
       firstIntroTimeline.to(".loading", {
         opacity: 0,
-        delay: 2,
+        delay: 1,
         onComplete: async () => {
           document.querySelector(".loading").classList.add("hidden");
           console.log("first intro complete");
@@ -187,7 +187,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "leftshelf1"
+        "leftshelf"
       );
       secondIntroTimeline.to(
         elements["tea_bottle2"].scale,
@@ -197,7 +197,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "leftshelf1"
+        "leftshelf"
       );
       secondIntroTimeline.to(
         elements["tea_box1"].scale,
@@ -207,7 +207,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "leftshelf1"
+        "leftshelf"
       );
       secondIntroTimeline.to(
         elements["tea_box2"].scale,
@@ -217,7 +217,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "leftshelf1"
+        "leftshelf"
       );
       secondIntroTimeline.to(
         elements["cup4"].scale,
@@ -227,7 +227,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "leftshelf2"
+        "leftshelf"
       );
       secondIntroTimeline.to(
         elements["cup5"].scale,
@@ -237,7 +237,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "leftshelf2"
+        "leftshelf"
       );
       secondIntroTimeline.to(
         elements["cup6"].scale,
@@ -247,7 +247,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "leftshelf2"
+        "leftshelf"
       );
       secondIntroTimeline.to(
         elements["pot"].scale,
@@ -257,7 +257,7 @@ const Room = () => {
           z: 1,
           ease: "back.out(2.5)",
         },
-        "leftshelf2"
+        "leftshelf"
       );
       secondIntroTimeline.to(
         elements["white_box1"].scale,
@@ -430,7 +430,7 @@ const Room = () => {
         ">-0.3"
       );
       secondIntroTimeline.to(
-        elements["vase"].scale,
+        elements["cake_window"].scale,
         {
           x: 1,
           y: 1,
@@ -440,7 +440,7 @@ const Room = () => {
         ">-0.3"
       );
       secondIntroTimeline.to(
-        elements["cake_window"].scale,
+        elements["vase"].scale,
         {
           x: 1,
           y: 1,
@@ -544,11 +544,17 @@ const Room = () => {
     playIntro();
   }, []);
 
-  // useFrame((state) => {
-  //   // for orthographic camera resize update
-  //   // and for zoom animation is needed
-  //   state.camera.updateProjectionMatrix();
-  // });
+  useFrame((state) => {
+    // for orthographic camera resize update
+    // and for zoom animation is needed
+    state.camera.updateProjectionMatrix();
+
+    roomRef.current.rotation.y = THREE.MathUtils.lerp(
+      -Math.PI / 4,
+      -Math.PI / 4 + state.mouse.x * Math.PI * 0.3,
+      0.05
+    );
+  });
 
   // position={[0, -1.1, 0]}
   return (
@@ -557,7 +563,7 @@ const Room = () => {
       rotation={[0, -Math.PI / 4, 0]}
       object={scene}
       scale={0.4}
-      position={[0, -1.1, 0]}
+      position={[0, -1.15, 0]}
     />
   );
 };
