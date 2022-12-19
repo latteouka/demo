@@ -78,24 +78,22 @@ const Model = () => {
 export default Model;
 
 const Room = () => {
-  // custom hook to set Room Models
-  const [model, elements] = useRoomModel("/models/lecouernew.glb");
+  // custom hook to set Room Models and get animations
+  const [scene, elements, actions] = useRoomModel("/models/lecouernew.glb");
+  //console.log(actions);
+  console.log(elements);
 
-  const { ref, actions } = useAnimations(model.current.animations);
   // resize observer
   const device = useCheckDevice();
 
   useEffect(() => {
-    actions["Cube.006Action"].play();
     actions["blue_box.003Action"].play();
-    console.log(actions);
   }, []);
 
   return (
     <primitive
-      ref={ref}
       rotation={[0, -Math.PI / 4, 0]}
-      object={model.current.scene}
+      object={scene}
       scale={0.4}
       position={[0, -1.1, 0]}
     />

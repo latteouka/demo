@@ -10,14 +10,19 @@ interface ElementsObject {
 
 const useRoomModel = (
   src: string
-): [MutableRefObject<GLTF & ObjectMap>, MutableRefObject<ElementsObject>] => {
-  const room = useGLTF(src);
-  const modelRef = useRef(room);
-  const elements = useRef<ElementsObject>({} as ElementsObject);
+): [THREE.Group, ElementsObject, { [x: string]: THREE.AnimationAction }] => {
+  // ): [MutableRefObject<GLTF & ObjectMap>, MutableRefObject<ElementsObject>] => {
+  const { scene, animations } = useGLTF(src);
+  const modelRef = useRef(scene);
+  const animationsRef = useRef(animations);
+  //const elements = useRef<ElementsObject>({} as ElementsObject);
+  const elements = {} as ElementsObject;
+
+  const { actions } = useAnimations(animations, scene);
 
   // set Model
-  modelRef.current.scene.children.forEach((child: any) => {
-    elements.current[child.name.toLowerCase()] = child;
+  scene.children.forEach((child: any) => {
+    elements[child.name.toLowerCase()] = child;
     child.castShadow = true;
     child.receiveShadow = true;
 
@@ -51,9 +56,11 @@ const useRoomModel = (
     if (child.name === "cake_window") {
       child.castShadow = false;
       child.material = new THREE.MeshPhysicalMaterial();
-      child.material.transmission = 0.7;
-      child.material.metalness = 0.1;
-      child.material.roughness = 0.4;
+      child.material.transparent = true;
+      child.material.opacity = 1;
+      child.material.transmission = 0.9;
+      child.material.metalness = 0.05;
+      child.material.roughness = 0.35;
       child.material.color.set(0xeaffff);
       child.material.ior = 2;
       console.log(child.material);
@@ -68,7 +75,7 @@ const useRoomModel = (
     }
   });
 
-  return [modelRef, elements];
+  return [scene, elements, actions];
 };
 
 export default useRoomModel;
