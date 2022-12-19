@@ -24,7 +24,7 @@ const Model = () => {
 
     firstIntroTimeline.to(".loading", {
       opacity: 0,
-      delay: 1,
+      delay: 2,
       onComplete: () => {
         document.querySelector(".loading").classList.add("hidden");
       },

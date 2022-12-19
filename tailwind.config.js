@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        loading: "moveup 2s ease-in-out infinite",
+        loading: "moveup 1.5s ease-in-out infinite",
       },
       keyframes: {
         moveup: {
