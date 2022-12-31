@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Loading = () => {
   return (
-    <div className="w-full h-[100vh] bg-[rgb(225,220,211)] fixed loading z-10">
+    <div className="w-full h-[100vh] bg-[#F9F4E6] fixed loading z-10">
       <div className="flex flex-col items-center justify-center w-full h-full">
         <div className="mx-24">
           <Image
