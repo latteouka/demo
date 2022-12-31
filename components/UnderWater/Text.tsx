@@ -16,7 +16,7 @@ interface TextProps extends EventHandlers {
   color?: string;
 }
 
-const Text = forwardRef<THREE.Group, TextProps>(
+const TextObject = forwardRef<THREE.Group, TextProps>(
   (
     {
       children,
@@ -54,7 +54,7 @@ const Text = forwardRef<THREE.Group, TextProps>(
   }
 );
 
-export default Text;
+export default TextObject;
 
 declare module "@react-three/fiber" {
   interface ThreeElements {
