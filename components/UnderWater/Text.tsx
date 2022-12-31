@@ -30,7 +30,7 @@ const Text = forwardRef<THREE.Group, TextProps>(
   ) => {
     const font = useLoader(FontLoader, "/fonts/hana.json");
     //const font = useLoader(FontLoader, "/underwater/bold.blob");
-    const config = useMemo(() => ({ font, size, height: 50 }), [font]);
+    const config = useMemo(() => ({ font, size, height: 50 }), [font, size]);
 
     // after initailizing change position base on vAlign,hAlign
     const meshUpdate = useCallback((self: THREE.Mesh) => {
