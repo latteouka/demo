@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-// import { OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 
 import Particles from "../components/UnderWater/Particles";
 import Number from "../components/UnderWater/Number";
@@ -47,7 +47,7 @@ const Scene = () => {
       <Effects down={down} />
 
       <Perf position="top-left" />
-      {/* <OrbitControls /> */}
+      <OrbitControls />
     </Canvas>
   );
 };
