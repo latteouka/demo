@@ -54,6 +54,8 @@ const TextObject = forwardRef<THREE.Group, TextProps>(
   }
 );
 
+TextObject.displayName = "TextObject";
+
 export default TextObject;
 
 declare module "@react-three/fiber" {
